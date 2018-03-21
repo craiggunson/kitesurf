@@ -1,1 +1,1 @@
-lambda-local -l ./wind-observation.js -h handler -e ./event.json 
+lambda-local -l ./lambda-wind.js -h handler -e ./event.json

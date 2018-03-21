@@ -2,7 +2,7 @@ var canvas,
 	context,
 	particles,
 	particleColor = "rgba(0, 0, 0,.1)",
-	particleDensity = 30,
+	particleDensity = 20,
 	motionBlur = true, //Motion blur effect on or off
 	particleSize = window.innerHeight/100,
 	collisionDetection = false;//collision effect on or off, this may degrade performance after set to true
@@ -76,8 +76,10 @@ function particle() {
 	this.draw = function() {
 		context.beginPath();
 		context.fillStyle = this.color;
-		context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
-		context.fill();
+		//context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
+		context.fillRect(this.posX, this.posY, this.posX+particleSize, this.posY+particleSize);
+
+		//context.fill();
 	}
 
 	this.move = function() {
