@@ -1,0 +1,18 @@
+version: 0.1
+
+phases:
+  pre_build:
+    commands:
+      - echo deploying wind `date`
+  build:
+    commands:
+      - echo deploying static content to s3
+      - aws s3 sync . s3://kitesurf.craiggunson.com --acl public-read --cache-control "max-age=60"  --delete
+      - echo package cloudformation
+      - aws cloudformation package --template-file ./api/sam.yaml --s3-bucket kitesurf.craiggunson.com --s3-prefix deploy --output-template-file ./api/deploy.yaml
+      - echo deploying api template
+      - aws cloudformation deploy --template-file ./api/deploy.yaml --stack-name wind  --capabilities CAPABILITY_NAMED_IAM
+
+  post_build:
+    commands:
+      - echo build completed on `date`
