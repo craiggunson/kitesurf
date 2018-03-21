@@ -17,10 +17,10 @@ http.get('http://www.bom.gov.au/fwo/IDV60901/IDV60901.94853.json', function(res)
            var when = proc.observations.data[i].local_date_time;
            var windspeed = proc.observations.data[i].wind_spd_kt;
            var gustspeed = proc.observations.data[i].gust_kt;
-           payload.push(when,windspeed,gustspeed);
+           var winddir = proc.observations.data[i].wind_dir;
+           payload.push(when,windspeed,gustspeed,winddir);
 
-           console.log ('when',when,'speed',windspeed,'gust',gustspeed);
-//           console.log('wind',proc.observations.data[i].local_date_time);
+           console.log ('when',when,'speed',windspeed,'gust',gustspeed,'winddir',winddir);
 
 
           }

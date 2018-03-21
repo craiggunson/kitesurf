@@ -26,11 +26,11 @@ var canvas,
 		var wind=JSON.parse(responseData);
 		//console.log('wind',wind);
 
-	 windspeed1=wind[0]+" "+wind[1]+"~"+wind[2];
-	 windspeed2=wind[3]+" "+wind[4]+"~"+wind[5];
-	 windspeed3=wind[6]+" "+wind[7]+"~"+wind[8];
-	 windspeed4=wind[9]+" "+wind[10]+"~"+wind[11];
-	 windspeed5=wind[12]+" "+wind[13]+"~"+wind[14];
+	 windspeed1=wind[0]+" "+wind[1]+"~"+wind[2]+" "+wind[3];
+	 windspeed2=wind[4]+" "+wind[5]+"~"+wind[6]+" "+wind[7];
+	 windspeed3=wind[8]+" "+wind[9]+"~"+wind[10]+" "+wind[11];
+	 windspeed4=wind[12]+" "+wind[13]+"~"+wind[14]+" "+wind[15];
+	 windspeed5=wind[16]+" "+wind[17]+"~"+wind[18]+" "+wind[19];
 	 windspeed1 = windspeed1.split("/");
 	 windspeed2 = windspeed2.split("/");
 	 windspeed3 = windspeed3.split("/");
