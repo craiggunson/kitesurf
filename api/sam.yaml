@@ -5,10 +5,10 @@ Description: >-
   Lambda function
 Resources:
 
-  MyServiceRole:
+  KiteServiceRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: WindServiceRole
+      RoleName: KiteServiceRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -21,7 +21,7 @@ Resources:
       ManagedPolicyArns:
       - arn:aws:iam::aws:policy/AWSLambdaExecute
 
-  MyApi:
+  KiteApi:
     Type: 'AWS::Serverless::Api'
     Properties:
       StageName: prod
@@ -34,7 +34,7 @@ Resources:
         schemes:
           - https
         paths:
-          /hightide:
+          /wind:
             get:
               produces:
                 - application/json
@@ -104,10 +104,10 @@ Resources:
             title: Empty Schema
 
 
-  hightide:
+  wind:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: wind.handler
+      Handler: lambda-wind.handler
       Runtime: nodejs6.10
       CodeUri: .
       Description: ''
@@ -115,13 +115,13 @@ Resources:
       MemorySize: 128
       Timeout: 9
       Role:
-        Fn::Sub: ${MyServiceRole.Arn}
+        Fn::Sub: ${KiteServiceRole.Arn}
 
   LambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     Properties:
       FunctionName:
-        Ref: "hightide"
+        Ref: "wind"
       Action: "lambda:InvokeFunction"
       Principal: "apigateway.amazonaws.com"
       SourceArn:
@@ -130,5 +130,5 @@ Resources:
           - - 'arn:aws:execute-api:ap-southeast-2:'
             - Ref: 'AWS::AccountId'
             - ':'
-            - Ref: MyApi
+            - Ref: KiteApi
             - /*/GET/wind
