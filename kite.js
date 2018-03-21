@@ -109,11 +109,14 @@ function particle() {
 		context.fillStyle = this.color;
 		//context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
 		context.fillRect(this.posX, this.posY, this.posX/2, this.posY/2);
-		context.fillStyle = "rgba(0, 0, 0,.04)";
+		context.fillStyle = "rgba(0, 0, 0,.03)";
 		context.textAlign = 'center';
-		var fontsize = canvas.height/20
 
-		context.font = 'normal '+fontsize+'px sans-serif';
+		var fontsize = canvas.height/20
+		context.font = 'normal '+fontsize+'px Courier New';
+
+		context.fillText("kitesurf",canvas.width/2,canvas.height/2-(fontsize*5));
+
 		context.fillText(windspeed1,canvas.width/2,canvas.height/2-(fontsize*3));
 		context.fillText(windspeed2,canvas.width/2,canvas.height/2-(fontsize*2));
 		context.fillText(windspeed3,canvas.width/2,canvas.height/2-(fontsize));
