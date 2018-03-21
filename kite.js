@@ -5,9 +5,44 @@ var canvas,
 	particleDensity = 20,
 	motionBlur = true, //Motion blur effect on or off
 	particleSize = window.innerHeight/100,
-	collisionDetection = false;//collision effect on or off, this may degrade performance after set to true
+	collisionDetection = false, //collision effect on or off, this may degrade performance after set to true
+  windspeed1='',
+	windspeed2='',
+	windspeed3='',
+	windspeed4='',
+	windspeed5=''
 
-function init() {
+
+	$.get({
+		url: "https://foweexlbzi.execute-api.ap-southeast-2.amazonaws.com/Stage/wind",
+		async: false,
+		timeout: 7000,
+		error: function(){
+						console.log("no wind data");
+						return true;
+				},
+		success: function(responseData,status) {
+
+		var wind=JSON.parse(responseData);
+		//console.log('wind',wind);
+
+	 windspeed1=wind[0]+" "+wind[1]+"~"+wind[2];
+	 windspeed2=wind[3]+" "+wind[4]+"~"+wind[5];
+	 windspeed3=wind[6]+" "+wind[7]+"~"+wind[8];
+	 windspeed4=wind[9]+" "+wind[10]+"~"+wind[11];
+	 windspeed5=wind[12]+" "+wind[13]+"~"+wind[14];
+
+}});
+
+
+function init(windspeed1,windspeed2,windspeed3,windspeed4,windspeed5) {
+	console.log (windspeed1);
+	console.log (windspeed2);
+	console.log (windspeed3);
+	console.log (windspeed4);
+	console.log (windspeed5);
+
+
 	canvas = document.getElementById('canvas');
 	context = canvas.getContext('2d')
 	context.scale(2,2);
@@ -28,22 +63,14 @@ function init() {
 function setBoundary() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
+
 }
 
-function moveParticle() {
+function moveParticle(windspeed1,windspeed2,windspeed3,windspeed4,windspeed5) {
 	if (motionBlur) {
 		//motion effect is on
-		context.fillStyle = "rgba(255, 240, 0,1)";
+		context.fillStyle = "rgba(255, 255, 0,1)";
 		context.fillRect(0, 0, canvas.width, canvas.height);
-		context.fillStyle = "rgba(0, 0, 0,.4)";
-		context.textAlign = 'center';
-		var fontsize = canvas.height/15
-		context.font = 'normal '+fontsize+'px sans-serif';
-		context.fillText("speed1",canvas.width/2,canvas.height/2-(fontsize*3));
-		context.fillText("speed2",canvas.width/2,canvas.height/2-(fontsize*2));
-		context.fillText("speed3",canvas.width/2,canvas.height/2-(fontsize));
-		context.fillText("speed4",canvas.width/2,canvas.height/2);
-		context.fillText("speed5",canvas.width/2,canvas.height/2+(fontsize));
 
 	} else {
 		//if motion blur effect is off
@@ -63,9 +90,12 @@ function moveParticle() {
 	}
 
 	requestAnimationFrame(moveParticle);
+
 }
 
 function particle() {
+
+
 	this.posX = Math.floor((Math.random() * window.innerWidth) + 1); //Current X position of a particle
 	this.posY = Math.floor((Math.random() * window.innerHeight) + 1); //Current Y position of a particle
 	this.speed = 1; //speed of particle
@@ -73,18 +103,32 @@ function particle() {
 	this.velocityY = (Math.random() - 0.5) * this.speed; //Y direction
 	this.color = particleColor;
 
+
 	this.draw = function() {
-		context.beginPath();
+		//context.beginPath();
 		context.fillStyle = this.color;
 		//context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
-		context.fillRect(this.posX, this.posY, this.posX+particleSize, this.posY+particleSize);
+		context.fillRect(this.posX, this.posY, this.posX/2, this.posY/2);
+		context.fillStyle = "rgba(0, 0, 0,.04)";
+		context.textAlign = 'center';
+		var fontsize = canvas.height/20
+
+		context.font = 'normal '+fontsize+'px sans-serif';
+		context.fillText(windspeed1,canvas.width/2,canvas.height/2-(fontsize*3));
+		context.fillText(windspeed2,canvas.width/2,canvas.height/2-(fontsize*2));
+		context.fillText(windspeed3,canvas.width/2,canvas.height/2-(fontsize));
+		context.fillText(windspeed4,canvas.width/2,canvas.height/2);
+		context.fillText(windspeed5,canvas.width/2,canvas.height/2+(fontsize));
+
 
 		//context.fill();
+		//context.endPath()
 	}
 
 	this.move = function() {
 		this.posX = (this.posX + this.velocityX);
 		this.posY = (this.posY + this.velocityY);
+
 
 		//if particle reached to max X
 		if (this.posX >= (window.innerWidth - particleSize)) {
@@ -128,5 +172,4 @@ function particle() {
 		}
 	}
 }
-
-init();
+init(windspeed1,windspeed2,windspeed3,windspeed4,windspeed5);
