@@ -4,7 +4,7 @@ var canvas,
 	particleColor = "rgba(0, 0, 0,.1)",
 	particleDensity = 20,
 	motionBlur = true, //Motion blur effect on or off
-	particleSize = window.innerHeight/100,
+	particleSize = window.innerHeight/20,
 	collisionDetection = false, //collision effect on or off, this may degrade performance after set to true
   windspeed1='',
 	windspeed2='',
@@ -31,6 +31,11 @@ var canvas,
 	 windspeed3=wind[6]+" "+wind[7]+"~"+wind[8];
 	 windspeed4=wind[9]+" "+wind[10]+"~"+wind[11];
 	 windspeed5=wind[12]+" "+wind[13]+"~"+wind[14];
+	 windspeed1 = windspeed1.split("/");
+	 windspeed2 = windspeed2.split("/");
+	 windspeed3 = windspeed3.split("/");
+	 windspeed4 = windspeed4.split("/");
+	 windspeed5 = windspeed5.split("/");
 
 }});
 
@@ -105,27 +110,27 @@ function particle() {
 
 
 	this.draw = function() {
-		//context.beginPath();
+		context.beginPath();
 		context.fillStyle = this.color;
-		//context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
-		context.fillRect(this.posX, this.posY, this.posX/2, this.posY/2);
+		context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
+		context.fill();
+
+		//context.fillRect(this.posX, this.posY, this.posX/2, this.posY/2);
 		context.fillStyle = "rgba(0, 0, 0,.03)";
 		context.textAlign = 'center';
 
 		var fontsize = canvas.height/20
 		context.font = 'normal '+fontsize+'px Courier New';
 
-		context.fillText("kitesurf",canvas.width/2,canvas.height/2-(fontsize*5));
+		context.fillText(windspeed1[0],canvas.width/2,canvas.height/2-(fontsize*5));
 
-		context.fillText(windspeed1,canvas.width/2,canvas.height/2-(fontsize*3));
-		context.fillText(windspeed2,canvas.width/2,canvas.height/2-(fontsize*2));
-		context.fillText(windspeed3,canvas.width/2,canvas.height/2-(fontsize));
-		context.fillText(windspeed4,canvas.width/2,canvas.height/2);
-		context.fillText(windspeed5,canvas.width/2,canvas.height/2+(fontsize));
+		context.fillText(windspeed1[1],canvas.width/2,canvas.height/2-(fontsize*3));
+		context.fillText(windspeed2[1],canvas.width/2,canvas.height/2-(fontsize*2));
+		context.fillText(windspeed3[1],canvas.width/2,canvas.height/2-(fontsize));
+		context.fillText(windspeed4[1],canvas.width/2,canvas.height/2);
+		context.fillText(windspeed5[1],canvas.width/2,canvas.height/2+(fontsize));
 
 
-		//context.fill();
-		//context.endPath()
 	}
 
 	this.move = function() {
