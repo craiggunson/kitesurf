@@ -24,4 +24,4 @@ $.get({
 pic
 
 
-![Sample](https://github.com/craiggunson/kitesurfing/blob/master/sample.jpg)
+![Sample](https://github.com/craiggunson/kitesurfing/blob/master/sample.png)
