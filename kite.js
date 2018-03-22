@@ -1,7 +1,7 @@
 var canvas,
 	context,
 	particles,
-	particleColor = "rgba(0, 0, 250,.1)",
+	particleColor = "rgba(255, 230, 0,1)",
 	particleDensity = 100,
 	motionBlur = true, //Motion blur effect on or off
 	particleSize = window.innerHeight/40,
@@ -114,6 +114,16 @@ function particle() {
 		context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
 		context.fill();
 		context.closePath();
+
+
+		context.beginPath();
+		context.fillStyle = "rgba(255, 245, 50,1)";
+
+		context.arc(this.posX, this.posY, particleSize/2, Math.PI * 2, false);
+		context.fill();
+		context.closePath();
+
+
 
 		//context.fillRect(this.posX, this.posY, this.posX/2, this.posY/2);
 

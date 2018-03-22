@@ -11,10 +11,10 @@ serverless kitesurfing windspeed app using javascript, HTML5/Canvas, api-gateway
 
 
 
-### TBA...
+##### See buildspec.yml
 
-1. deploy commands are in buildspec.yml
-2. update kite.js
+1. Use AWS CodeBuild or (manual) use deploy commands from inside.
+2. update kite.js like so...
 
 ```
 $.get({
