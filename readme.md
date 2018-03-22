@@ -13,10 +13,12 @@ serverless kitesurfing windspeed app using javascript, HTML5/Canvas, api-gateway
 
 ### TBA...
 
-instructions
+1. deploy commands are in buildspec.yml
+2. update kite.js
 
- ```
-code snippet
+```
+$.get({
+  url: "https://yourapi.execute-api.ap-southeast-2.amazonaws.com/Stage/wind",
 ```
 
 pic
