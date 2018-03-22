@@ -1,10 +1,10 @@
 var canvas,
 	context,
 	particles,
-	particleColor = "rgba(0, 0, 0,.1)",
-	particleDensity = 20,
+	particleColor = "rgba(0, 0, 250,.1)",
+	particleDensity = 100,
 	motionBlur = true, //Motion blur effect on or off
-	particleSize = window.innerHeight/20,
+	particleSize = window.innerHeight/40,
 	collisionDetection = false, //collision effect on or off, this may degrade performance after set to true
   windspeed1='',
 	windspeed2='',
@@ -26,26 +26,23 @@ var canvas,
 		var wind=JSON.parse(responseData);
 		//console.log('wind',wind);
 
-	 windspeed1=wind[0]+" "+wind[1]+"~"+wind[2]+" "+wind[3];
-	 windspeed2=wind[4]+" "+wind[5]+"~"+wind[6]+" "+wind[7];
-	 windspeed3=wind[8]+" "+wind[9]+"~"+wind[10]+" "+wind[11];
-	 windspeed4=wind[12]+" "+wind[13]+"~"+wind[14]+" "+wind[15];
-	 windspeed5=wind[16]+" "+wind[17]+"~"+wind[18]+" "+wind[19];
+	 windspeed1=wind[0]+" "+wind[1]+"~"+wind[2]+wind[3];
+	 windspeed2=wind[4]+" "+wind[5]+"~"+wind[6]+wind[7];
+	 windspeed3=wind[8]+" "+wind[9]+"~"+wind[10]+wind[11];
+	 windspeed4=wind[12]+" "+wind[13]+"~"+wind[14]+wind[15];
+	 windspeed5=wind[16]+" "+wind[17]+"~"+wind[18]+wind[19];
 	 windspeed1 = windspeed1.split("/");
 	 windspeed2 = windspeed2.split("/");
 	 windspeed3 = windspeed3.split("/");
 	 windspeed4 = windspeed4.split("/");
 	 windspeed5 = windspeed5.split("/");
+	 document.getElementById("replace").innerHTML = "Day "+windspeed1[0]+"<br><br>"+windspeed1[1]+"<br><br>"+windspeed2[1]+"<br><br>"+windspeed3[1]+"<br><br>"+windspeed4[1]+"<br><br>"+windspeed5[1];
 
 }});
 
 
 function init(windspeed1,windspeed2,windspeed3,windspeed4,windspeed5) {
-	console.log (windspeed1);
-	console.log (windspeed2);
-	console.log (windspeed3);
-	console.log (windspeed4);
-	console.log (windspeed5);
+
 
 
 	canvas = document.getElementById('canvas');
@@ -74,8 +71,9 @@ function setBoundary() {
 function moveParticle(windspeed1,windspeed2,windspeed3,windspeed4,windspeed5) {
 	if (motionBlur) {
 		//motion effect is on
-		context.fillStyle = "rgba(255, 255, 0,1)";
-		context.fillRect(0, 0, canvas.width, canvas.height);
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		//context.fillStyle = "rgba(255, 255, 0,.05)";
+		//context.fillRect(0, 0, canvas.width, canvas.height);
 
 	} else {
 		//if motion blur effect is off
@@ -112,23 +110,13 @@ function particle() {
 	this.draw = function() {
 		context.beginPath();
 		context.fillStyle = this.color;
+
 		context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
 		context.fill();
+		context.closePath();
 
 		//context.fillRect(this.posX, this.posY, this.posX/2, this.posY/2);
-		context.fillStyle = "rgba(0, 0, 0,.03)";
-		context.textAlign = 'center';
 
-		var fontsize = canvas.height/20
-		context.font = 'normal '+fontsize+'px Courier New';
-
-		context.fillText(windspeed1[0],canvas.width/2,canvas.height/2-(fontsize*5));
-
-		context.fillText(windspeed1[1],canvas.width/2,canvas.height/2-(fontsize*3));
-		context.fillText(windspeed2[1],canvas.width/2,canvas.height/2-(fontsize*2));
-		context.fillText(windspeed3[1],canvas.width/2,canvas.height/2-(fontsize));
-		context.fillText(windspeed4[1],canvas.width/2,canvas.height/2);
-		context.fillText(windspeed5[1],canvas.width/2,canvas.height/2+(fontsize));
 
 
 	}
