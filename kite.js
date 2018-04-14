@@ -1,12 +1,4 @@
-var canvas,
-	context,
-	particles,
-	particleColor = "rgba(255, 230, 0,1)",
-	particleDensity = 100,
-	motionBlur = true, //Motion blur effect on or off
-	particleSize = window.innerHeight/40,
-	collisionDetection = false, //collision effect on or off, this may degrade performance after set to true
-  windspeed1='',
+var windspeed1='',
 	windspeed2='',
 	windspeed3='',
 	windspeed4='',
@@ -40,142 +32,93 @@ var canvas,
 
 }});
 
+window.addEventListener('resize', resize, false);
+//canvas init
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var W = window.innerWidth;
+var H = window.innerHeight;
+var myintervalid;
 
-function init(windspeed1,windspeed2,windspeed3,windspeed4,windspeed5) {
 
+function resize() {
+	clearInterval(myintervalid);
 
+	canvas = document.getElementById("canvas");
+	ctx = canvas.getContext("2d");
+	W = window.innerWidth;
+	H = window.innerHeight;
 
-	canvas = document.getElementById('canvas');
-	context = canvas.getContext('2d')
-	context.scale(2,2);
-	particles = new Array();
-
-	setBoundary();
-	window.addEventListener("resize", setBoundary, true); //when window resize resize cavas as well
-
-	//Create particles
-
-	for (var i = 0; i < particleDensity; i++) {
-		particles.push(new particle());
-	}
-
-	requestAnimationFrame(moveParticle);
+	console.log('resized',W,H);
+	bubbles();
 }
 
-function setBoundary() {
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
+function bubbles() {
 
-}
+	//canvas dimensions
 
-function moveParticle(windspeed1,windspeed2,windspeed3,windspeed4,windspeed5) {
-	if (motionBlur) {
-		//motion effect is on
-		context.clearRect(0, 0, canvas.width, canvas.height);
-		//context.fillStyle = "rgba(255, 255, 0,.05)";
-		//context.fillRect(0, 0, canvas.width, canvas.height);
+	canvas.width = W;
+	canvas.height = H;
 
-	} else {
-		//if motion blur effect is off
-		context.clearRect(0, 0, canvas.width, canvas.height);
+
+	//drink bubbles
+	var mp = 250,
+	airbubbles = [],
+	x=0,
+	y=0,
+	r=0,
+	d=0,
+	p=0,
+	angle=0
+
+
+	for(var i = 0; i < mp; i++)
+	{
+		airbubbles.push({
+			x: Math.random()*W, //x-coordinate
+			y: Math.random()*H, //y-coordinate
+			r: Math.random()*5+1, //radius
+			d: Math.random()*mp //density
+		})
+	}
+	console.log ('bubbles');
+
+	//Lets draw the flakes
+	function draw()
+	{
+		ctx.clearRect(0, 0, W, H);
+
+		ctx.fillStyle = "rgba(0,0,0,.2)";
+		ctx.beginPath();
+		for(var i = 0; i < mp; i++)
+		{
+			var p = airbubbles[i];
+			ctx.moveTo(p.x, p.y);
+			ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+		}
+		ctx.fill();
+		update();
 	}
 
-	for (i = 0; i < particleDensity; i++) {
-		particles[i].move();
-	}
 
-	if (collisionDetection) {
-		for (var i = 0; i < particleDensity; i++) {
-			for (var j = i + 1; j < particleDensity; j++) {
-				particles[i].detectCollision(particles[j]);
+	var angle = 0;
+	function update()
+	{
+		//angle += 0.01;
+		for(var i = 0; i < mp; i++)
+		{
+			var p = airbubbles[i];
+
+			p.y += Math.cos(angle+p.d) - 1 - p.r/2;
+			if(p.x > W+5 || p.x < -5 || p.y < 0)
+			{
+
+					airbubbles[i] = {x: Math.random()*W, y: H, r: p.r, d: p.d};
+
 			}
 		}
 	}
-
-	requestAnimationFrame(moveParticle);
-
+	myintervalid = setInterval(draw, 30);
 }
-
-function particle() {
-
-
-	this.posX = Math.floor((Math.random() * window.innerWidth) + 1); //Current X position of a particle
-	this.posY = Math.floor((Math.random() * window.innerHeight) + 1); //Current Y position of a particle
-	this.speed = 1; //speed of particle
-	this.velocityX = (Math.random() - 0.5) * this.speed; //x Direction
-	this.velocityY = (Math.random() - 0.5) * this.speed; //Y direction
-	this.color = particleColor;
-
-
-	this.draw = function() {
-		context.beginPath();
-		context.fillStyle = this.color;
-
-		context.arc(this.posX, this.posY, particleSize, Math.PI * 2, false);
-		context.fill();
-		context.closePath();
-
-
-		context.beginPath();
-		context.fillStyle = "rgba(255, 245, 50,1)";
-
-		context.arc(this.posX, this.posY, particleSize/2, Math.PI * 2, false);
-		context.fill();
-		context.closePath();
-
-
-
-		//context.fillRect(this.posX, this.posY, this.posX/2, this.posY/2);
-
-
-
-	}
-
-	this.move = function() {
-		this.posX = (this.posX + this.velocityX);
-		this.posY = (this.posY + this.velocityY);
-
-
-		//if particle reached to max X
-		if (this.posX >= (window.innerWidth - particleSize)) {
-			this.velocityX *= -1;
-		}
-		//if particle reached to max y
-		else if (this.posY >= (window.innerHeight - particleSize)) {
-			this.velocityY *= -1;
-		}
-		//if particle reached to min x
-		else if (this.posX <= particleSize) {
-			this.velocityX *= -1;
-		}
-		//if particle reached to min y
-		else if (this.posY <= particleSize) {
-			this.velocityY *= -1;
-		}
-
-		this.draw();
-	}
-
-	this.findDistance = function(particle1) {
-		//Finding distance between two particles
-		//rootover diffrence between x cordinates and and y corndinates
-		return Math.round(
-			Math.sqrt(
-				Math.pow(this.posX - particle1.posX, 2) +
-				Math.pow(this.posY - particle1.posY, 2)
-			)
-		);
-	}
-
-	this.detectCollision = function(particle1) {
-
-		var distance = this.findDistance(particle1);
-
-		if ((distance <= 2 * particleSize)) {
-			var x = this.velocityX;
-			this.velocityX = particle1.velocityX;
-			particle1.velocityX = x;
-		}
-	}
-}
-init(windspeed1,windspeed2,windspeed3,windspeed4,windspeed5);
+resize();
+//bubbles();
