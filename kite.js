@@ -4,6 +4,21 @@ var windspeed1='',
 	windspeed4='',
 	windspeed5=''
 
+	function ordinal_suffix_of(i) {
+			var j = i % 10,
+					k = i % 100;
+			if (j == 1 && k != 11) {
+					return i + "st";
+			}
+			if (j == 2 && k != 12) {
+					return i + "nd";
+			}
+			if (j == 3 && k != 13) {
+					return i + "rd";
+			}
+			return i + "th";
+	}
+
 
 	$.get({
 		url: "https://foweexlbzi.execute-api.ap-southeast-2.amazonaws.com/Stage/wind",
@@ -18,17 +33,20 @@ var windspeed1='',
 		var wind=JSON.parse(responseData);
 		//console.log('wind',wind);
 
-	 windspeed1=wind[0]+" "+wind[1]+"~"+wind[2]+wind[3];
-	 windspeed2=wind[4]+" "+wind[5]+"~"+wind[6]+wind[7];
-	 windspeed3=wind[8]+" "+wind[9]+"~"+wind[10]+wind[11];
-	 windspeed4=wind[12]+" "+wind[13]+"~"+wind[14]+wind[15];
-	 windspeed5=wind[16]+" "+wind[17]+"~"+wind[18]+wind[19];
+	 windspeed1=wind[0]+" "+wind[1]+"-"+wind[2]+wind[3];
+	 windspeed2=wind[4]+" "+wind[5]+"-"+wind[6]+wind[7];
+	 windspeed3=wind[8]+" "+wind[9]+"-"+wind[10]+wind[11];
+	 windspeed4=wind[12]+" "+wind[13]+"-"+wind[14]+wind[15];
+	 windspeed5=wind[16]+" "+wind[17]+"-"+wind[18]+wind[19];
 	 windspeed1 = windspeed1.split("/");
 	 windspeed2 = windspeed2.split("/");
 	 windspeed3 = windspeed3.split("/");
 	 windspeed4 = windspeed4.split("/");
 	 windspeed5 = windspeed5.split("/");
-	 document.getElementById("replace").innerHTML = "Day "+windspeed1[0]+"<br><br>"+windspeed1[1]+"<br><br>"+windspeed2[1]+"<br><br>"+windspeed3[1]+"<br><br>"+windspeed4[1]+"<br><br>"+windspeed5[1];
+
+var today = ordinal_suffix_of(windspeed1[0]);
+
+	 document.getElementById("replace").innerHTML = "today "+today+"<br><br>"+windspeed1[1]+"<br><br>"+windspeed2[1]+"<br><br>"+windspeed3[1]+"<br><br>"+windspeed4[1]+"<br><br>"+windspeed5[1];
 
 }});
 
