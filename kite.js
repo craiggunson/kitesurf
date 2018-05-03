@@ -95,18 +95,18 @@ function bubbles() {
 		airbubbles.push({
 			x: Math.random()*W, //x-coordinate
 			y: Math.random()*H, //y-coordinate
-			r: Math.random()*5+1, //radius
+			r: Math.random()*7+1, //radius
 			d: Math.random()*mp //density
 		})
 	}
 	console.log ('bubbles');
 
-	//Lets draw the flakes
+	//Lets draw the bubbles
 	function draw()
 	{
 		ctx.clearRect(0, 0, W, H);
 
-		ctx.fillStyle = "rgba(0,0,0,.2)";
+		ctx.fillStyle = "rgba(0,0,0,.1)";
 		ctx.beginPath();
 		for(var i = 0; i < mp; i++)
 		{
@@ -127,7 +127,7 @@ function bubbles() {
 		{
 			var p = airbubbles[i];
 
-			p.y += Math.cos(angle+p.d) - 1 - p.r/2;
+			p.y += 1 - 2 - p.r/2;
 			if(p.x > W+5 || p.x < -5 || p.y < 0)
 			{
 
