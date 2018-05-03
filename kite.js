@@ -86,8 +86,7 @@ function bubbles() {
 	y=0,
 	r=0,
 	d=0,
-	p=0,
-	angle=0
+	p=0
 
 
 	for(var i = 0; i < mp; i++)
@@ -119,10 +118,8 @@ function bubbles() {
 	}
 
 
-	var angle = 0;
 	function update()
 	{
-		//angle += 0.01;
 		for(var i = 0; i < mp; i++)
 		{
 			var p = airbubbles[i];
