@@ -20,18 +20,15 @@ var windspeed1='',
 	}
 
 
-	$.get({
-		url: "https://foweexlbzi.execute-api.ap-southeast-2.amazonaws.com/Stage/wind",
-		async: false,
-		timeout: 7000,
-		error: function(){
-						console.log("no wind data");
-						return true;
-				},
-		success: function(responseData,status) {
+	function reqListener () {
+	  console.log(this.responseText);
 
-		var wind=JSON.parse(responseData);
-		//console.log('wind',wind);
+		var wind=JSON.parse(this.responseText);
+
+		wind = wind.toString();
+		wind=JSON.parse(wind);
+
+		console.log('wind',wind);
 
 	 windspeed1=wind[0]+" "+wind[1]+"-"+wind[2]+wind[3];
 	 windspeed2=wind[4]+" "+wind[5]+"-"+wind[6]+wind[7];
@@ -48,7 +45,14 @@ var today = ordinal_suffix_of(windspeed1[0]);
 
 	 document.getElementById("replace").innerHTML = "today "+today+"<br><br>"+windspeed1[1]+"<br><br>"+windspeed2[1]+"<br><br>"+windspeed3[1]+"<br><br>"+windspeed4[1]+"<br><br>"+windspeed5[1];
 
-}});
+	}
+
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", reqListener);
+	oReq.open("GET", "https://foweexlbzi.execute-api.ap-southeast-2.amazonaws.com/Stage/wind", true);
+	oReq.send();
+
+
 
 window.addEventListener('resize', resize, false);
 //canvas init
