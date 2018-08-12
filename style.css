@@ -1,0 +1,49 @@
+
+    @import url('https://fonts.googleapis.com/css?family=Lalezar');
+
+body{
+  margin: 0;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  background-color: rgba(220, 170, 0,1);
+}
+
+
+canvas{
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: -3;
+
+}
+fieldset {
+  font-family: 'Lalezar', sans-serif;
+  border: 0;
+  margin-top: 10vh;
+  width: 90vw;
+  margin-left: 0vw;
+
+
+  color: rgba(0, 0, 0,.3);
+  float: inherit;
+
+  text-align: center;
+  display:block;
+}
+
+.mainbutton {
+  float: inherit;
+  white-space: nowrap;
+
+  -webkit-appearance: none;
+  border-radius: 1vh;
+  background-color: rgba(0, 0, 0,0);
+  text-align: center;
+  font-size: 5vh;
+}

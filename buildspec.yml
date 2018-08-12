@@ -15,4 +15,5 @@ phases:
 
   post_build:
     commands:
+      - aws apigateway update-stage --cli-input-json file://./throttle.json
       - echo build completed on `date`

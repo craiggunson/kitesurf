@@ -43,7 +43,7 @@ var windspeed1='',
 
 var today = ordinal_suffix_of(windspeed1[0]);
 
-	 document.getElementById("replace").innerHTML = "today "+today+"<br><br>"+windspeed1[1]+"<br><br>"+windspeed2[1]+"<br><br>"+windspeed3[1]+"<br><br>"+windspeed4[1]+"<br><br>"+windspeed5[1];
+	 document.getElementById("replace").innerHTML = "South Channel Island "+today+"<br><br>"+windspeed1[1]+"<br>"+windspeed2[1]+"<br>"+windspeed3[1]+"<br>"+windspeed4[1]+"<br>"+windspeed5[1];
 
 	}
 
@@ -109,7 +109,7 @@ function bubbles() {
 	{
 		ctx.clearRect(0, 0, W, H);
 
-		ctx.fillStyle = "rgba(0,0,0,.1)";
+		ctx.fillStyle = "rgba(255,255,255,.3)";
 		ctx.beginPath();
 		for(var i = 0; i < mp; i++)
 		{

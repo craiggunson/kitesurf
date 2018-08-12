@@ -5,8 +5,10 @@ process.env.TZ = 'Australia/Sydney'
 var http = require('http');
 var data = '';
 var payload = [];
+var fawkner = "";
+var southchannelisland = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94853.json";
 
-http.get('http://www.bom.gov.au/fwo/IDV60901/IDV60901.95872.json', function(res) {
+http.get(southchannelisland, function(res) {
     if (res.statusCode >= 200 && res.statusCode < 400) {
       res.on('data', function(data_) { data += data_.toString(); });
       res.on('end', function() {

@@ -1,0 +1,22 @@
+{
+    "restApiId": "foweexlbzi",
+    "stageName": "Stage",
+    "patchOperations": [
+        {
+            "op": "replace",
+            "path": "/*/*/throttling/rateLimit",
+            "value": "6.0",
+            "from": ""
+        },
+        {
+            "op": "replace",
+            "path": "/*/*/throttling/burstLimit",
+            "value": "51",
+            "from": ""
+        }
+
+
+
+
+    ]
+}
