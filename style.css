@@ -6,7 +6,8 @@ body{
   z-index: 1;
   padding: 0;
   position: absolute;
-  background-color: rgba(250, 150, 50,1);
+  background-color: rgba(220, 255, 0,1);
+  overflow:hidden;
 }
 
 
@@ -29,7 +30,7 @@ fieldset {
   padding: 0;
   text-align: center;
   font-size: 5vh;
-  color: rgba(0, 0, 0,.3);
+  color: rgba(0, 0, 0,.4);
   float: inherit;
 
   text-align: center;

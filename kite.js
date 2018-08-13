@@ -109,7 +109,7 @@ function bubbles() {
 	{
 		ctx.clearRect(0, 0, W, H);
 
-		ctx.fillStyle = "rgba(255,255,255,.3)";
+		ctx.fillStyle = "rgba(0,0,0,.3)";
 		ctx.beginPath();
 		for(var i = 0; i < mp; i++)
 		{
