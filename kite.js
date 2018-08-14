@@ -43,7 +43,7 @@ var windspeed1='',
 
 var today = ordinal_suffix_of(windspeed1[0]);
 
-	 document.getElementById("replace").innerHTML = "South Channel Island "+today+"<br><br>"+windspeed1[1]+"<br>"+windspeed2[1]+"<br>"+windspeed3[1]+"<br>"+windspeed4[1]+"<br>"+windspeed5[1];
+	 document.getElementById("replace").innerHTML = 'South Channel Island<br>'+today+"<br><br>"+windspeed1[1]+"<br>"+windspeed2[1]+"<br>"+windspeed3[1]+"<br>"+windspeed4[1]+"<br>"+windspeed5[1];
 
 	}
 

@@ -1,5 +1,5 @@
 
-    @import url('https://fonts.googleapis.com/css?family=Teko:700');
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 body{
   margin: 0;
@@ -23,7 +23,7 @@ canvas{
 
 }
 fieldset {
-  font-family: 'Teko', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   border: 0;
   margin-top: 10vh;
   width: 100vw;
@@ -35,4 +35,13 @@ fieldset {
 
   text-align: center;
   display:block;
+}
+
+
+div.wnw {
+    transform: rotate(20deg);
+}
+
+div.reset {
+    transform:  rotate(-20deg);
 }
