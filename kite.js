@@ -1,3 +1,23 @@
+
+
+var east='A',
+southeast='B',
+south='C',
+southwest='D',
+west='E',
+northwest='F',
+north='G',
+northeast='H',
+southsoutheast='C',
+southsouthwest='C',
+northnortheast='G',
+northnorthwest='G',
+westnorthwest='E',
+westsouthweast='E',
+eastnortheast='A',
+eastsoutheast='A'
+
+
 var windspeed1='',
 	windspeed2='',
 	windspeed3='',
@@ -30,20 +50,93 @@ var windspeed1='',
 
 		console.log('wind',wind);
 
-	 windspeed1=wind[0]+" "+wind[1]+"-"+wind[2]+wind[3];
-	 windspeed2=wind[4]+" "+wind[5]+"-"+wind[6]+wind[7];
-	 windspeed3=wind[8]+" "+wind[9]+"-"+wind[10]+wind[11];
-	 windspeed4=wind[12]+" "+wind[13]+"-"+wind[14]+wind[15];
-	 windspeed5=wind[16]+" "+wind[17]+"-"+wind[18]+wind[19];
-	 windspeed1 = windspeed1.split("/");
-	 windspeed2 = windspeed2.split("/");
-	 windspeed3 = windspeed3.split("/");
-	 windspeed4 = windspeed4.split("/");
-	 windspeed5 = windspeed5.split("/");
+		var i;
+		for (i = 0; i < wind.length; i++) {
+		    var check=wind[i];
+			switch (check) {
 
-var today = ordinal_suffix_of(windspeed1[0]);
+				case 'E':
+				wind[i] = east;
+				break;
 
-	 document.getElementById("replace").innerHTML = 'South Channel Island<br>'+today+"<br><br>"+windspeed1[1]+"<br>"+windspeed2[1]+"<br>"+windspeed3[1]+"<br>"+windspeed4[1]+"<br>"+windspeed5[1];
+				case 'SE':
+				wind[i] = southeast;
+				break;
+
+				case 'S':
+				wind[i] = south;
+				break;
+
+				case 'SW':
+				wind[i] = southwest;
+				break;
+
+				case 'W':
+				wind[i] = west;
+				break;
+
+				case 'NW':
+				wind[i] = northwest;
+        break;
+
+				case 'N':
+				wind[i] = north;
+				break;
+
+				case 'NE':
+				wind[i] = northeast;
+				break;
+
+				case 'SSE':
+				wind[i] = southsoutheast;
+				break;
+
+				case 'SSW':
+				wind[i] = southsouthwest;
+				break;
+
+				case 'NNE':
+				wind[i] = northnortheast;
+				break;
+
+				case 'NNW':
+				wind[i] = northnorthwest;
+				break;
+
+				case 'WNW':
+				wind[i] = westnorthwest;
+				break;
+
+				case 'WSW':
+				wind[i] = westsouthweast;
+				break;
+
+				case 'ENE':
+				wind[i] = eastnortheast;
+				break;
+
+				case 'ESE':
+				wind[i] = eastsoutheast;
+        break;
+
+		}
+	}
+
+	var t1=wind[0].split("/");
+	windspeed1=t1[1]+" "+wind[1]+"-"+wind[2]+'<div class="arrow"> '+wind[3]+'</div>';
+	var t2=wind[4].split("/");
+	windspeed2=t2[1]+" "+wind[5]+"-"+wind[6]+'<div class="arrow"> '+wind[7]+'</div>';
+	var t3=wind[8].split("/");
+	windspeed3=t3[1]+" "+wind[9]+"-"+wind[10]+'<div class="arrow"> '+wind[11]+'</div>';
+	var t4=wind[12].split("/");
+	windspeed4=t4[1]+" "+wind[13]+"-"+wind[14]+'<div class="arrow"> '+wind[15]+'</div>';
+	var t5=wind[16].split("/");
+	windspeed5=t5[1]+" "+wind[17]+"-"+wind[18]+'<div class="arrow"> '+wind[19]+'</div>';
+
+  var today = ordinal_suffix_of(t1[0]);
+
+
+	 document.getElementById("replace").innerHTML = 'South Channel Island<br>'+today+"<br><br>"+windspeed1+"<br>"+windspeed2+"<br>"+windspeed3+"<br>"+windspeed4+"<br>"+windspeed5;
 
 	}
 
@@ -109,7 +202,7 @@ function bubbles() {
 	{
 		ctx.clearRect(0, 0, W, H);
 
-		ctx.fillStyle = "rgba(0,0,0,.3)";
+		ctx.fillStyle = "rgba(255,255,255,.4)";
 		ctx.beginPath();
 		for(var i = 0; i < mp; i++)
 		{

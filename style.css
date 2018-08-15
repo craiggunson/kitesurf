@@ -6,10 +6,33 @@ body{
   z-index: 1;
   padding: 0;
   position: absolute;
-  background-color: rgba(220, 255, 0,1);
+  background-color: rgba(220, 200, 0,1);
   overflow:hidden;
 }
 
+@font-face {
+    font-family: "myfont";
+    src: url("arrows.woff") format('woff');
+}
+.arrow {
+    font-family: myfont;
+    font-size: 4vh;
+    color: rgba(0, 0, 0,.6);
+    display: inline;
+}
+
+.arrowlegend {
+    font-family: myfont;
+    font-size: 3vh;
+    color: rgba(0, 0, 0,.6);
+    display: inline;
+}
+
+.textlegend {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3vh;
+  color: rgba(0, 0, 0,.6);
+}
 
 canvas{
   position: absolute;
@@ -30,18 +53,9 @@ fieldset {
   padding: 0;
   text-align: center;
   font-size: 5vh;
-  color: rgba(0, 0, 0,.4);
+  color: rgba(0, 0, 0,.6);
   float: inherit;
 
   text-align: center;
   display:block;
-}
-
-
-div.wnw {
-    transform: rotate(20deg);
-}
-
-div.reset {
-    transform:  rotate(-20deg);
 }
