@@ -15,7 +15,8 @@ northnorthwest='G',
 westnorthwest='E',
 westsouthweast='E',
 eastnortheast='A',
-eastsoutheast='A'
+eastsoutheast='A',
+nowind='~'
 
 
 var windspeed1='',
@@ -118,6 +119,10 @@ var windspeed1='',
 				case 'ESE':
 				wind[i] = eastsoutheast;
         break;
+
+				case 'CALM':
+				wind[i] = nowind;
+				break;
 
 		}
 	}
