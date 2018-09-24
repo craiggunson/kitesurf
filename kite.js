@@ -155,7 +155,6 @@ var windspeed1='',
 
   }
 
-window.addEventListener('resize', rel, false);
 //canvas init
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -166,6 +165,7 @@ var myintervalid;
 
 function resize() {
 	clearInterval(myintervalid);
+  window.addEventListener('resize', rel, false);
 
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
