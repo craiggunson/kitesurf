@@ -150,10 +150,7 @@ var windspeed1='',
 	oReq.open("GET", "https://foweexlbzi.execute-api.ap-southeast-2.amazonaws.com/Stage/wind", true);
 	oReq.send();
 
-  function rel() {
-    location.reload();
 
-  }
 
 //canvas init
 var canvas = document.getElementById("canvas");
@@ -165,7 +162,7 @@ var myintervalid;
 
 function resize() {
 	clearInterval(myintervalid);
-  window.addEventListener('resize', rel, false);
+  window.addEventListener('resize', resize, false);
 
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
