@@ -207,14 +207,13 @@ function bubbles() {
 	{
 		ctx.clearRect(0, 0, W, H);
 
-		ctx.strokeStyle = "rgba(0,0,0,.3)";
+		ctx.strokeStyle = "rgba(0,0,0,.2)";
 		ctx.beginPath();
 		for(var i = 0; i < mp; i++)
 		{
 			var p = airbubbles[i];
 			ctx.moveTo(p.x+p.r, p.y);
 			ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
-      ctx.moveTo(p.x+p.r/1.5, p.y);
 
 		}
 		ctx.stroke();
