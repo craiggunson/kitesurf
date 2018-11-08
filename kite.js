@@ -182,7 +182,7 @@ function bubbles() {
 
 
 	//drink bubbles
-	var mp = 250,
+	var mp = 100,
 	airbubbles = [],
 	x=0,
 	y=0,
@@ -196,7 +196,7 @@ function bubbles() {
 		airbubbles.push({
 			x: Math.random()*W, //x-coordinate
 			y: Math.random()*H, //y-coordinate
-			r: Math.random()*7+1, //radius
+			r: Math.random()*15+4, //radius
 			d: Math.random()*mp //density
 		})
 	}
