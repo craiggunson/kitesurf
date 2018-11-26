@@ -207,16 +207,16 @@ function bubbles() {
 	{
 		ctx.clearRect(0, 0, W, H);
 
-		ctx.strokeStyle = "rgba(0,0,0,.2)";
+		ctx.fillStyle = "rgba(0,0,0,.2)";
 		ctx.beginPath();
 		for(var i = 0; i < mp; i++)
 		{
 			var p = airbubbles[i];
-			ctx.moveTo(p.x+p.r, p.y);
-			ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+			ctx.moveTo(p.x, p.y);
+			ctx.rect(p.x, p.y, p.r,p.r);
 
 		}
-		ctx.stroke();
+		ctx.fill();
 		update();
 	}
 
@@ -227,11 +227,12 @@ function bubbles() {
 		{
 			var p = airbubbles[i];
 
-			p.y += 1 - 2 - p.r/2;
-			if(p.x > W+5 || p.x < -5 || p.y < 0)
+			p.x += 1 - 2 - p.r/2;
+      console.log('x',p.x)
+			if(p.x < 0)
 			{
 
-					airbubbles[i] = {x: Math.random()*W, y: H, r: p.r, d: p.d};
+					airbubbles[i] = {x: W, y: Math.random()*H, r: p.r, d: p.d};
 
 			}
 		}

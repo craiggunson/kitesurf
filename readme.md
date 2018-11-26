@@ -7,7 +7,7 @@ kitesurf.craiggunson.com
 
 
 
-serverless kitesurfing windspeed app using javascript, HTML5/Canvas, api-gateway, lambda  
+serverless kitesurfing windspeed app using javascript, HTML5/Canvas, api-gateway, lambda   
 
 
 
@@ -24,4 +24,4 @@ $.get({
 pic
 
 
-![Sample](https://github.com/craiggunson/kitesurf/blob/master/sample.png)
+![Sample](./sample.png)
