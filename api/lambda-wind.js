@@ -4,6 +4,12 @@ const http = require('http');
 const zlib = require("zlib");
 
 
+exports.handler = (event, context, callback) => {
+  var data = '';
+  var payload = [];
+  var i = 0;
+
+
   const options = {
     hostname: 'www.bom.gov.au',
     path: '/fwo/IDV60901/IDV60901.94853.json',
@@ -51,4 +57,4 @@ http.get(options, function(res) {
     });
 
 
-
+  }
