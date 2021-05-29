@@ -32,11 +32,11 @@ http.get(options, function(res) {
       var gunzip = zlib.createGunzip();            
       res.pipe(gunzip);
 
-      gunzip.on('data', d => {
-        process.stdout.write(d)
-      })
-       res.on('end', function() {
-        try {  var proc = JSON.parse(data); }
+      gunzip.on('data', function(data) { buffer.push(data.toString()); });
+
+
+       gunzip.on('end', function() {
+        try {  var proc = JSON.parse(buffer.join("")); }
         catch (e) {console.log('parse error');return}
 
         for (i = 0; i < 5; i++) {
