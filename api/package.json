@@ -1,0 +1,19 @@
+{
+  "name": "lambda-wind",
+  "version": "1.0.0",
+  "description": "Wind for Kitesurfing",
+  "main": "lambda-wind.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/craiggunson/kitesurf.git"
+  },
+  "author": "Craig Gunson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/craiggunson/kitesurf/issues"
+  },
+  "homepage": "https://github.com/craiggunson/kitesurf#readme"
+}
