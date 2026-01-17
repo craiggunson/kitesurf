@@ -1,6 +1,6 @@
 
 process.env.TZ = 'Australia/Sydney'
-const http = require('http');
+const https = require('https');
 const zlib = require("zlib");
 
 
@@ -25,7 +25,7 @@ exports.handler = (event, context, callback) => {
   }};
 
 console.log('options',options.headers)
-http.get(options, function(res) {
+https.get(options, function(res) {
     console.log(res.statusCode)
     if (res.statusCode == 200) {
       console.log(res.data);
