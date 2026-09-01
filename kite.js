@@ -1,29 +1,11 @@
 
 
-var east='A',
-southeast='B',
-south='C',
-southwest='D',
-west='E',
-northwest='F',
-north='G',
-northeast='H',
-southsoutheast='C',
-southsouthwest='C',
-northnortheast='G',
-northnorthwest='G',
-westnorthwest='E',
-westsouthweast='E',
-eastnortheast='A',
-eastsoutheast='A',
-nowind='~'
-
-
-var windspeed1='',
-	windspeed2='',
-	windspeed3='',
-	windspeed4='',
-	windspeed5=''
+// Arrow font (see style.css): letters map to compass points, clockwise from north.
+function degToArrow(deg) {
+	if (deg == null || isNaN(deg)) return '~';
+	var letters = ['G','H','A','B','C','D','E','F']; // N,NE,E,SE,S,SW,W,NW
+	return letters[Math.round(deg / 45) % 8];
+}
 
 	function ordinal_suffix_of(i) {
 			var j = i % 10,
@@ -41,114 +23,54 @@ var windspeed1='',
 	}
 
 
-	function reqListener () {
-	  console.log(this.responseText);
+	function renderWind(lat, lon) {
+		var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat +
+			'&longitude=' + lon +
+			'&hourly=wind_speed_10m,wind_gusts_10m,wind_direction_10m' +
+			'&wind_speed_unit=kn&timezone=auto&forecast_days=1';
 
-		var wind=JSON.parse(this.responseText);
+		fetch(url)
+			.then(function (r) { return r.json(); })
+			.then(function (data) {
+				var h = data.hourly;
+				// start at the current hour, then show that plus the next 4 readings
+				var now = Date.now();
+				var start = 0;
+				for (var k = 0; k < h.time.length; k++) {
+					if (new Date(h.time[k]).getTime() >= now) { start = k; break; }
+				}
+				start = Math.min(start, Math.max(0, h.time.length - 5));
 
-		wind = wind.toString();
-		wind=JSON.parse(wind);
+				var rows = '';
+				var headerDay;
+				for (var n = 0; n < 5; n++) {
+					var idx = start + n;
+					var t = h.time[idx];              // "2026-09-01T14:00"
+					if (n === 0) headerDay = parseInt(t.slice(8, 10), 10);
+					var clock = t.slice(11, 16);      // "14:00"
+					var spd = Math.round(h.wind_speed_10m[idx]);
+					var gust = Math.round(h.wind_gusts_10m[idx]);
+					var arrow = degToArrow(h.wind_direction_10m[idx]);
+					rows += clock + ' ' + spd + '-' + gust + '<div class="arrow"> ' + arrow + '</div><br>';
+				}
 
-		console.log('wind',wind);
-
-		var i;
-		for (i = 0; i < wind.length; i++) {
-		    var check=wind[i];
-			switch (check) {
-
-				case 'E':
-				wind[i] = east;
-				break;
-
-				case 'SE':
-				wind[i] = southeast;
-				break;
-
-				case 'S':
-				wind[i] = south;
-				break;
-
-				case 'SW':
-				wind[i] = southwest;
-				break;
-
-				case 'W':
-				wind[i] = west;
-				break;
-
-				case 'NW':
-				wind[i] = northwest;
-        break;
-
-				case 'N':
-				wind[i] = north;
-				break;
-
-				case 'NE':
-				wind[i] = northeast;
-				break;
-
-				case 'SSE':
-				wind[i] = southsoutheast;
-				break;
-
-				case 'SSW':
-				wind[i] = southsouthwest;
-				break;
-
-				case 'NNE':
-				wind[i] = northnortheast;
-				break;
-
-				case 'NNW':
-				wind[i] = northnorthwest;
-				break;
-
-				case 'WNW':
-				wind[i] = westnorthwest;
-				break;
-
-				case 'WSW':
-				wind[i] = westsouthweast;
-				break;
-
-				case 'ENE':
-				wind[i] = eastnortheast;
-				break;
-
-				case 'ESE':
-				wind[i] = eastsoutheast;
-        break;
-
-				case 'CALM':
-				wind[i] = nowind;
-				break;
-
-		}
+				document.getElementById("replace").innerHTML =
+					lat.toFixed(4) + ', ' + lon.toFixed(4) + '<br>' + ordinal_suffix_of(headerDay) + '<br><br>' + rows;
+			})
+			.catch(function (err) { console.log('wind fail', err); });
 	}
 
-	var t1=wind[0].split("/");
-	windspeed1=t1[1]+" "+wind[1]+"-"+wind[2]+'<div class="arrow"> '+wind[3]+'</div>';
-	var t2=wind[4].split("/");
-	windspeed2=t2[1]+" "+wind[5]+"-"+wind[6]+'<div class="arrow"> '+wind[7]+'</div>';
-	var t3=wind[8].split("/");
-	windspeed3=t3[1]+" "+wind[9]+"-"+wind[10]+'<div class="arrow"> '+wind[11]+'</div>';
-	var t4=wind[12].split("/");
-	windspeed4=t4[1]+" "+wind[13]+"-"+wind[14]+'<div class="arrow"> '+wind[15]+'</div>';
-	var t5=wind[16].split("/");
-	windspeed5=t5[1]+" "+wind[17]+"-"+wind[18]+'<div class="arrow"> '+wind[19]+'</div>';
-
-  var today = ordinal_suffix_of(t1[0]);
-
-
-	 document.getElementById("replace").innerHTML = 'South Channel Island<br>'+today+"<br><br>"+windspeed1+"<br>"+windspeed2+"<br>"+windspeed3+"<br>"+windspeed4+"<br>"+windspeed5;
-
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			function (pos) { renderWind(pos.coords.latitude, pos.coords.longitude); },
+			function (err) {
+				console.log('geolocation unavailable, using default', err);
+				renderWind(-38.30, 144.82);
+			}
+		);
+	} else {
+		renderWind(-38.30, 144.82);
 	}
-
-	var oReq = new XMLHttpRequest();
-	oReq.addEventListener("load", reqListener);
-	oReq.open("GET", "https://foweexlbzi.execute-api.ap-southeast-2.amazonaws.com/Stage/wind", true);
-	oReq.send();
 
 
 
