@@ -23,7 +23,7 @@ function degToArrow(deg) {
 	}
 
 
-	function renderWind(lat, lon, label) {
+	function renderWind(lat, lon) {
 		var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat +
 			'&longitude=' + lon +
 			'&hourly=wind_speed_10m,wind_gusts_10m,wind_direction_10m' +
@@ -55,21 +55,21 @@ function degToArrow(deg) {
 				}
 
 				document.getElementById("replace").innerHTML =
-					label + '<br>' + ordinal_suffix_of(headerDay) + '<br><br>' + rows;
+					lat.toFixed(4) + ', ' + lon.toFixed(4) + '<br>' + ordinal_suffix_of(headerDay) + '<br><br>' + rows;
 			})
 			.catch(function (err) { console.log('wind fail', err); });
 	}
 
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
-			function (pos) { renderWind(pos.coords.latitude, pos.coords.longitude, 'Your location'); },
+			function (pos) { renderWind(pos.coords.latitude, pos.coords.longitude); },
 			function (err) {
 				console.log('geolocation unavailable, using default', err);
-				renderWind(-38.30, 144.82, 'South Channel Island');
+				renderWind(-38.30, 144.82);
 			}
 		);
 	} else {
-		renderWind(-38.30, 144.82, 'South Channel Island');
+		renderWind(-38.30, 144.82);
 	}
 
 
