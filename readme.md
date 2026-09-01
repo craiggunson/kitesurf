@@ -1,9 +1,9 @@
 # kitesurf
 
 
-A simple windspeed app showing wind direction and speed at a favourite kitesurfing location.
+A simple windspeed app showing wind direction and speed at a fave kite surfing location.
 
-`Serverless` `Javascript` `HTML5` `Amazon Web Services`   
+https://craiggunson.github.io/kitesurf/
 
 
 ![Sample](./sample.jpg)
